@@ -34,9 +34,10 @@ def run(args):
         if args["-"]:
             input = sys.stdin.read()
         args = args["<args>"]
-        stdout, stderr = exec_shell_command(vmname, program=program, args=args, input_data=input, env=env)
+        stdout, stderr, exitcode = exec_shell_command(vmname, program=program, args=args, input_data=input, env=env)
         print(stdout, file=sys.stdout, end="")
         print(stderr,file=sys.stderr, end="")
+        sys.exit(exitcode)
 
 
 def check_can_exec(vmname):
@@ -106,7 +107,7 @@ def exec_shell_command(vmname: str, program: str, args: list[str] = None, input_
             stdout_trunc: bool = maybe(qemu_reply)["return"]["out-truncated"].or_else(False)
             stderr_trunc: bool = maybe(qemu_reply)["return"]["err-truncated"].or_else(False)
             # ic(exited, exitcode, signal, stdout, stderr, stdout_trunc, stderr_trunc)
-            return stdout, stderr
+            return stdout, stderr, exitcode
             # break
         sleep(0.05)
 
