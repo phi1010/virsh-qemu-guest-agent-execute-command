@@ -53,8 +53,6 @@ def get_supported_commands(vmname):
 
 
 def test(vmname):
-    # https://qemu-project.gitlab.io/qemu/interop/qemu-ga-ref.html#qapidoc-199
-    # guest-exec Command
 
     ic(exec_shell_command(vmname, "env", [], "", ["FOO=BAR"]))
     ic(exec_shell_command(vmname, "uname", ["-a"]))
@@ -81,6 +79,8 @@ def exec_shell_command(vmname: str, program: str, args: list[str] = None, input_
     if isinstance(env, dict):
         env = [f"{key}={value}" for key, value in env.items()]
 
+    # https://qemu-project.gitlab.io/qemu/interop/qemu-ga-ref.html#qapidoc-199
+    # guest-exec Command
     qemu_reply = exec_command(vmname, dict(execute="guest-exec", arguments={
         'path': program,
         "capture-output": True,
