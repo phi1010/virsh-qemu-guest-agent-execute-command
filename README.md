@@ -25,3 +25,12 @@ error
 $ ./run-command.py foo -- bash -c "echo foo >&2"
 foo
 ```
+
+```
+Usage:
+  ./run_command.py <vmname> [-i TEXT | - ]  [-e VAREQVALUE]... [--] <program> [<args>...]
+
+-i TEXT, --input TEXT                  The text sent on stdin.
+-                                      If set, input is read from stdin.
+-e VAREQVALUE, --env VAREQVALUE        Pairs VAR=VALUE for environment variables
+```
