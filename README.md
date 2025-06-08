@@ -24,6 +24,13 @@ error
 
 $ ./run-command.py foo -- bash -c "echo foo >&2"
 foo
+
+$ ./run-command.py foo -- bash -c "false" ; echo $?
+1
+
+$ ./run-command.py foo -- bash -c "true" ; echo $?
+0
+
 ```
 
 ```
